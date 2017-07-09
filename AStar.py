@@ -8,16 +8,14 @@ class AStar:
 		self.graph = graph
 
 	def run(self, initialNode, targetNode):
-		cost = 0
 		visited = []
 		initialNode = self.graph.find_node(initialNode)
 		targetNode = self.graph.find_node(targetNode)
-		print(type(self.graph))
-		self.graph.set_heuristic(targetNode)
-
 		if initialNode == None or targetNode == None:
 			raise Exception("Could not find node with that name")
-		initialNode.cost = cost
+
+		self.graph.set_heuristic(targetNode)
+		initialNode.cost = 0
 		queue = []
 		queue.append(initialNode)
 
@@ -26,7 +24,7 @@ class AStar:
 			if current == targetNode:
 				break
 			for neighbour in current.neighbours:
-				if neighbour[1] not in visited and neighbour[0].cost > current.cost + neighbour[1]:
+				if neighbour[0] not in visited and neighbour[0].cost > current.cost + neighbour[1]:
 					neighbour[0].cost = current.cost + neighbour[1]
 					neighbour[0].parent = current
 					if neighbour[0] not in queue:
@@ -34,8 +32,18 @@ class AStar:
 			visited.append(current)
 			queue.remove(current)
 			queue.sort(key = lambda n : n.fitness)
+
+
+
 		else:
 			return None
+
+		for n in visited:
+			print(n._name)
+
+
+
+
 		current = queue[0]
 		path = [current]
 		while current.parent != None:

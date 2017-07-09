@@ -6,13 +6,11 @@ class Node:
 		self.neighbours  = []
 		self.parent = None
 		self.cost = sys.maxsize
-		self.heruistic = 0
+		self.heuristic = 0
 		
 	@property
 	def fitness(self):
-		return self.heruistic + self.cost
+		return self.heuristic + self.cost
 
 	def add_neighbour(self, neighbour, weight):
 		self.neighbours.append((neighbour, weight))
-
-

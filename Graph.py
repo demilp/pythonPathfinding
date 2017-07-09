@@ -19,4 +19,6 @@ class Graph:
 				return node
 		return None
 
-				
+	def set_heuristic(self, method, target):
+		for node in self.nodes:
+			node.heuristic = method(node, target)

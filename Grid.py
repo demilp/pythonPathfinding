@@ -41,19 +41,19 @@ class Grid(Graph):
 		except Exception as e:
 			print(e)
 		
-		def find_node_position(self, node):
-			for w in range(len(self.n)):
-				for h in range(len(self.n[w])):
-					if n[w][h]._name == node._name:
-						return (w, h)
-			else:
-				raise "Node " + node._name + " not found in grid"
+	def find_node_position(self, node):
 
-		def set_heuristic(self, target):
-			for node in self.nodes:
-				node.heuristic = self.manhattan(node, target)				
+		for w in range(len(self.n)):
+			for h in range(len(self.n[w])):
+				if self.n[w][h]._name == node._name:
+					return (w, h)
+		else:
+			raise "Node " + node._name + " not found in grid"
 
-		def manhattan(self, node1, node2):
-			s = find_node_position(node1)
-			t = find_node_position(node2)
-			return abs(s[0] - t[0]) + abs(s[1] - t[1]);
+	def set_heuristic(self, target):
+		super().set_heuristic(self.manhattan, target)
+
+	def manhattan(self, node1, node2):
+		s = self.find_node_position(node1)
+		t = self.find_node_position(node2)
+		return abs(s[0] - t[0]) + abs(s[1] - t[1]);
